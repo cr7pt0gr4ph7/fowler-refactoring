@@ -2,6 +2,10 @@ abstract class Price {
     abstract int getPriceCode();
 
     abstract double getCharge(int daysRented);
+
+    int getFrequentRenterPoints(int daysRented) {
+        return 1;
+    }
 }
 
 class RegularPrice extends Price {
@@ -37,6 +41,12 @@ class NewReleasePrice extends Price {
     @Override
     int getPriceCode() {
         return Movie.NEW_RELEASE;
+    }
+
+    @Override
+    int getFrequentRenterPoints(int daysRented) {
+        // add bonus for a two day new release rental
+        return daysRented > 1 ? 2 : 1;
     }
 
     double getCharge(int daysRented) {
